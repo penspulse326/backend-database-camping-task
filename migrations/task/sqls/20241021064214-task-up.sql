@@ -291,6 +291,29 @@ WHERE
     -- 5. 授課結束時間`end_at`設定為2024-11-25 16:00:00
     -- 6. 最大授課人數`max_participants` 設定為10
     -- 7. 授課連結設定`meeting_url`為 https://test-meeting.test.io
+    INSERT INTO
+        "COURSE" (user_id, skill_id, name, start_at, end_at, max_participants, meeting_url)
+    SELECT
+        c.user_id,
+        cls.skill_id,
+        '重訓基礎課',
+        '2024-11-25 14:00:00',
+        '2024-11-25 16:00:00',
+        10,
+        'https://test-meeting.test.io'
+    FROM
+        "COACH_LINK_SKILL" cls
+        INNER JOIN "SKILL" s ON cls.skill_id = s.id
+        INNER JOIN "COACH" c ON cls.coach_id = c.id
+    WHERE
+        c.user_id = (
+            SELECT
+                id
+            FROM
+                "USER"
+            WHERE
+                email = 'lee2000@hexschooltest.io'
+        );
 
 
 -- ████████  █████   █    █████ 
