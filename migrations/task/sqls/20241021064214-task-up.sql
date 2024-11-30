@@ -506,9 +506,34 @@
 
 -- 6-2 查詢：查詢每種專長的教練數量，並只列出教練數量最多的專長（需使用 group by, inner join 與 order by 與 limit 語法）
 -- 顯示須包含以下欄位： 專長名稱, coach_total
+    SELECT
+        s.id,
+        s.name AS "專長名稱",
+        COUNT(*) AS coach_total
+    FROM
+        "COACH_LINK_SKILL" column_privileges
+        INNER JOIN "SKILL" s ON s.id = cls.skill_id
+    GROUP BY
+        s.id
+    ORDER BY
+        coach_total DESC
+    LIMIT
+        1;
+	
 
 -- 6-3. 查詢：計算 11 月份組合包方案的銷售數量
 -- 顯示須包含以下欄位： 組合包方案名稱, 銷售數量
+    SELECT
+        pkg.name AS "組合包方案名稱",
+        COUNT(*) AS "銷售數量"
+    FROM
+        "CREDIT_PURCHASE" cp
+        INNER JOIN "CREDIT_PACKAGE" pkg ON pkg.id = cp.credit_package_id
+    WHERE
+        cp.purchase_at >= '2024-11-01 00:00:00'
+        AND cp.purchase_at <= '2024-11-30 23:59:59'
+    GROUP BY
+        pkg.name;
 
 -- 6-4. 查詢：計算 11 月份總營收（使用 purchase_at 欄位統計）
 -- 顯示須包含以下欄位： 總營收
