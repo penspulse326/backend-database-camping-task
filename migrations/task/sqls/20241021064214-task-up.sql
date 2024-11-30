@@ -437,13 +437,25 @@
         SUM(cpch.purchased_credits) AS total
     FROM
         "CREDIT_PURCHASE" cpch
-        INNER JOIN "USER" u ON u.id = cpch.user_id
+        INNER JOIN "USER" u ON cpch.user_id = u.id
     WHERE
         u.email = 'wXlTq@hexschooltest.io'
     GROUP BY
-        u.name;
+        u.email;
 
 -- 5-7. 查詢：計算用戶王小明的已使用堂數，顯示須包含以下欄位： user_id , total。 (需使用到 Count 函式與 Group By)
+    SELECT
+        u.id AS user_id,
+        u."name" AS name,
+        COUNT(*) AS total
+    FROM
+        "COURSE_BOOKING" cb
+        INNER JOIN "USER" u ON cb.user_id = u.id
+    WHERE
+        u.email = 'wXlTq@hexschooltest.io'
+        AND cb.join_at IS NOT NULL
+    GROUP BY
+        u.id;
 
 -- 5-8. [挑戰題] 查詢：請在一次查詢中，計算用戶王小明的剩餘可用堂數，顯示須包含以下欄位： user_id , remaining_credit
     -- 提示：
