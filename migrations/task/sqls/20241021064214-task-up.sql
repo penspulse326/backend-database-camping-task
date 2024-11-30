@@ -511,7 +511,7 @@
         s.name AS "專長名稱",
         COUNT(*) AS coach_total
     FROM
-        "COACH_LINK_SKILL" column_privileges
+        "COACH_LINK_SKILL" cls
         INNER JOIN "SKILL" s ON s.id = cls.skill_id
     GROUP BY
         s.id
