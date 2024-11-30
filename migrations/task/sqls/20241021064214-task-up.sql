@@ -306,6 +306,7 @@ WHERE
         -- 1. 預約人設為`王小明`
         -- 2. 預約時間`booking_at` 設為2024-11-24 16:00:00
         -- 3. 狀態`status` 設定為即將授課
+
     INSERT INTO
         "COURSE_BOOKING" (user_id, course_id, booking_at, status)
     SELECT
@@ -375,7 +376,7 @@ WHERE
                 LEFT JOIN "COURSE" c ON u.id = c.user_id
             WHERE
                 u.email = 'lee2000@hexschooltest.io'
-        )
+        );
 
 -- 5-3. 新增：`王小明`再次預約 `李燕容`   的課程，請在`COURSE_BOOKING`新增一筆資料：
     -- 1. 預約人設為`王小明`
